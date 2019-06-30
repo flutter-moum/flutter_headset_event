@@ -3,7 +3,7 @@ import UIKit
 
 public class SwiftHeadsetEventPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "headset_event", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "flutter.moum/headset_event", binaryMessenger: registrar.messenger())
     let instance = SwiftHeadsetEventPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
