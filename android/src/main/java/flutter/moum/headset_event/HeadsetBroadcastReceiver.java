@@ -15,11 +15,9 @@ public class HeadsetBroadcastReceiver extends BroadcastReceiver {
             switch (state) {
                 case 0:
                     HeadsetEventPlugin.headsetUnplugged();
-                    Log.d(TAG, "Headset is unplugged");
                     break;
                 case 1:
                     HeadsetEventPlugin.headsetPlugged();
-                    Log.d(TAG, "Headset is plugged");
                     break;
                 default:
                     Log.d(TAG, "I have no idea what the headset state is");

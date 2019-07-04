@@ -2,6 +2,7 @@ package flutter.moum.headset_event;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -14,12 +15,12 @@ public class HeadsetEventPlugin implements MethodCallHandler {
 
   public static MethodChannel headsetEventChannel;
   private static HeadsetBroadcastReceiver hReceiver;
+  private static final String TAG = "HeadsetEventPlugin";
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     headsetEventChannel = new MethodChannel(registrar.messenger(), "flutter.moum/headset_event");
     headsetEventChannel.setMethodCallHandler(new HeadsetEventPlugin());
-
     hReceiver = new HeadsetBroadcastReceiver();
     IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
     registrar.activeContext().registerReceiver(hReceiver, filter);
@@ -41,7 +42,7 @@ public class HeadsetEventPlugin implements MethodCallHandler {
     headsetEventChannel.invokeMethod("plugged", "true");
   }
   public static void headsetUnplugged() {
-    headsetEventChannel.invokeMethod("plugged", "false");
+    headsetEventChannel.invokeMethod("unplugged", "true");
   }
 
 }

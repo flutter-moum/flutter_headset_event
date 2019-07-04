@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-typedef DetectPluggedCallback = Future<dynamic> Function(String payload);
+typedef DetectPluggedCallback = Function(bool payload);
 
 class HeadsetEvent {
+
+  DetectPluggedCallback detectPluggedCallback;
+
   static const MethodChannel _channel =
       const MethodChannel('flutter.moum/headset_event');
 
@@ -13,19 +16,20 @@ class HeadsetEvent {
     return version;
   }
 
-  static initDetectHandler() {
-    print('initDetectHandler');
+  initialize({DetectPluggedCallback onConnected}) {
+    detectPluggedCallback = onConnected;
     _channel.setMethodCallHandler(_handleMethod);
   }
 
-  static Future<dynamic> _handleMethod(MethodCall call) async {
+  Future<dynamic> _handleMethod(MethodCall call) async {
     switch(call.method) {
       case "plugged":
-        print('headset plugged!!');
-        return new Future.value(true);
+        return detectPluggedCallback(true);
       case "unplugged":
-        print('headset unplugged!!');
-        return new Future.value(false);
+        return detectPluggedCallback(false);
+      default:
+        print('No idea');
+        return detectPluggedCallback(false);
     }
   }
 
