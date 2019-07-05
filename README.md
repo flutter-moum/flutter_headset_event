@@ -18,14 +18,14 @@ HeadsetEvent he = new HeadsetEvent();
 bool isConnected = false;
 
 // Get the value
-// if headset is plugged
+// if headset is plugged at the moment
 he.isPlugged.then((_val){
   setState(() {
     isConnected = _val;
   });
 });
 
-// detect headset plugged
+// detect if headset plugged or unplugged
 he.setOnPlugged((_val) {
   setState(() {
     isConnected = _val;
