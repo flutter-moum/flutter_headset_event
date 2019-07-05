@@ -1,14 +1,34 @@
-# headset_event
+# Headset Event Flutter Plugin
 
-A new flutter plugin project.
+A Flutter plugin to get a headset event.
 
-## Getting Started
+Migrated to AndroidX
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Usage
+To use this plugin, add `headset_event` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Example
+
+``` dart
+// Import package
+import 'package:headset_event/headset_event.dart';
+
+// Instantiate it
+HeadsetEvent he = new HeadsetEvent();
+bool isConnected = false;
+
+// Get the value
+// if headset is plugged
+he.isPlugged.then((_val){
+  setState(() {
+    isConnected = _val;
+  });
+});
+
+// detect headset plugged
+he.setOnPlugged((_val) {
+  setState(() {
+    isConnected = _val;
+  });
+});
+```
