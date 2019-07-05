@@ -12,6 +12,7 @@ public class HeadsetBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
             int state = intent.getIntExtra("state", -1);
+            HeadsetEventPlugin.currentState = state;
             switch (state) {
                 case 0:
                     HeadsetEventPlugin.headsetUnplugged();

@@ -14,6 +14,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 public class HeadsetEventPlugin implements MethodCallHandler {
 
   public static MethodChannel headsetEventChannel;
+  public static int currentState = -1;
   private static HeadsetBroadcastReceiver hReceiver;
   private static final String TAG = "HeadsetEventPlugin";
 
@@ -31,8 +32,10 @@ public class HeadsetEventPlugin implements MethodCallHandler {
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else if(call.method.equals("register")){
+    } else if(call.method.equals("register")) {
 
+    } else if(call.method.equals("getCurrentState")) {
+      result.success(currentState);
     } else {
       result.notImplemented();
     }

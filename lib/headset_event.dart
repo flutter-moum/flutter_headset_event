@@ -16,8 +16,21 @@ class HeadsetEvent {
     return version;
   }
 
-  initialize({DetectPluggedCallback onConnected}) {
-    detectPluggedCallback = onConnected;
+  Future<bool> get isPlugged async {
+    final int state = await _channel.invokeMethod('getCurrentState');
+    switch(state) {
+      case 0:
+        return Future.value(false);
+      case 1:
+        return Future.value(true);
+      case -1:
+        return Future.value(false);
+    }
+    return Future.value(false);
+  }
+
+  setOnPlugged(DetectPluggedCallback onPlugged) {
+    detectPluggedCallback = onPlugged;
     _channel.setMethodCallHandler(_handleMethod);
   }
 
