@@ -11,7 +11,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** HeadsetEventPlugin */
-public class HeadsetEventPlugin implements MethodCallHandler {
+public class HeadsetEventPlugin implements MethodCallHandler{
 
   public static MethodChannel headsetEventChannel;
   public static int currentState = -1;
@@ -22,7 +22,7 @@ public class HeadsetEventPlugin implements MethodCallHandler {
   public static void registerWith(Registrar registrar) {
     headsetEventChannel = new MethodChannel(registrar.messenger(), "flutter.moum/headset_event");
     headsetEventChannel.setMethodCallHandler(new HeadsetEventPlugin());
-    hReceiver = new HeadsetBroadcastReceiver();
+    hReceiver = new HeadsetBroadcastReceiver(headsetEventListener);
     IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
     registrar.activeContext().registerReceiver(hReceiver, filter);
 
@@ -41,11 +41,25 @@ public class HeadsetEventPlugin implements MethodCallHandler {
     }
   }
 
-  public static void headsetPlugged() {
-    headsetEventChannel.invokeMethod("plugged", "true");
-  }
-  public static void headsetUnplugged() {
-    headsetEventChannel.invokeMethod("unplugged", "true");
-  }
+  static HeadsetEventListener headsetEventListener = new HeadsetEventListener() {
+      @Override
+      public void onHeadsetConnect() {
+          headsetEventChannel.invokeMethod("connect", "true");
+      }
 
+      @Override
+      public void onHeadsetDisconnect() {
+          headsetEventChannel.invokeMethod("disconnect", "true");
+      }
+
+      @Override
+      public void onNextButtonPress() {
+          headsetEventChannel.invokeMethod("nextButton", "true");
+      }
+
+      @Override
+      public void onPrevButtonPress() {
+          headsetEventChannel.invokeMethod("prevButton", "true");
+      }
+  };
 }

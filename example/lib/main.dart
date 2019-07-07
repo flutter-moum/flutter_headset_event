@@ -13,23 +13,23 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   HeadsetEvent he = new HeadsetEvent();
-  bool isConnected = false;
+  var headsetEvent;
 
   @override
   void initState() {
     super.initState();
 
     // if headset is plugged
-    he.isPlugged.then((_val){
+    he.isConnected.then((_val){
       setState(() {
-        isConnected = _val;
+        headsetEvent = _val;
       });
     });
 
     // detect headset plugged
-    he.setOnPlugged((_val) {
+    he.setHeadsetEvent((_val) {
       setState(() {
-        isConnected = _val;
+        headsetEvent = _val;
       });
     });
   }
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Headset is connected? : $isConnected\n'),
+          child: Text('Headset is connected? : $headsetEvent\n'),
         ),
       ),
     );
