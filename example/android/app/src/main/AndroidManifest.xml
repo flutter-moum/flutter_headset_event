@@ -33,6 +33,7 @@
         <receiver android:name="flutter.moum.headset_event.HeadsetBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.HEADSET_PLUG" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
     </application>

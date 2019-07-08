@@ -33,10 +33,10 @@ public class HeadsetBroadcastReceiver extends BroadcastReceiver {
             abortBroadcast();
 
             KeyEvent key = (KeyEvent) intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-
             if (key.getAction() == KeyEvent.ACTION_UP) {
-                int keycode = key.getKeyCode();
 
+                int keycode = key.getKeyCode();
+                Log.d(TAG, "onReceive: "+keycode);
                 switch(keycode) {
                     case KeyEvent.KEYCODE_MEDIA_NEXT:
                         headsetEventListener.onNextButtonPress();
