@@ -23,23 +23,16 @@ public class HeadsetEventPlugin implements MethodCallHandler{
     headsetEventChannel = new MethodChannel(registrar.messenger(), "flutter.moum/headset_event");
     headsetEventChannel.setMethodCallHandler(new HeadsetEventPlugin());
     hReceiver = new HeadsetBroadcastReceiver(headsetEventListener);
-    IntentFilter filter = new IntentFilter();
-    filter.addAction(Intent.ACTION_HEADSET_PLUG);
-    filter.addAction(Intent.ACTION_MEDIA_BUTTON);
+    IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
     registrar.activeContext().registerReceiver(hReceiver, filter);
 
   }
-
-
 
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if(call.method.equals("register")) {
-        // invoke
-
-    } else if(call.method.equals("unregister")) {
 
     } else if(call.method.equals("getCurrentState")) {
       result.success(currentState);

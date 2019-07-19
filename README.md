@@ -7,24 +7,6 @@ Migrated to AndroidX
 ## Usage
 To use this plugin, add `headset_event` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-## Android Integration
-
-You need to add receiver in your AndroidManifest.xml
-
-```xml
-<application
-    ... >
-
-    <receiver android:name="flutter.moum.headset_event.HeadsetBroadcastReceiver" >
-        <intent-filter>
-            <action android:name="android.intent.action.HEADSET_PLUG" />
-            <action android:name="android.intent.action.MEDIA_BUTTON" />
-        </intent-filter>
-    </receiver>
-
-</application>
-```
-
 ### Example
 
 ``` dart
