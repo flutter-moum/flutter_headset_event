@@ -23,20 +23,20 @@ class HeadsetEvent {
     return version;
   }
 
-  Future<bool> get isConnected async {
+  Future<HeadsetState> get getCurrentState async {
     final int state = await _channel.invokeMethod('getCurrentState');
     switch(state) {
       case 0:
-        return Future.value(false);
+        return Future.value(HeadsetState.DISCONNECT);
       case 1:
-        return Future.value(true);
+        return Future.value(HeadsetState.CONNECT);
       case -1:
-        return Future.value(false);
+        return Future.value(HeadsetState.DISCONNECT);
     }
-    return Future.value(false);
+    return Future.value(HeadsetState.DISCONNECT);
   }
 
-  setHeadsetEvent(DetectPluggedCallback onPlugged) {
+  setListener(DetectPluggedCallback onPlugged) {
     detectPluggedCallback = onPlugged;
     _channel.setMethodCallHandler(_handleMethod);
   }

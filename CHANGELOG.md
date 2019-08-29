@@ -1,3 +1,7 @@
+## 0.0.2
+
+Example more details
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+Flutter plugin for headset events

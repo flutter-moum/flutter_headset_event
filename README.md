@@ -10,25 +10,24 @@ To use this plugin, add `headset_event` as a [dependency in your pubspec.yaml fi
 ### Example
 
 ``` dart
-// Import package
-import 'package:headset_event/headset_event.dart';
+    // Import package
+    import 'package:headset_event/headset_event.dart';
 
-// Instantiate it
-HeadsetEvent he = new HeadsetEvent();
-bool isConnected = false;
+    // Instantiate it
+    HeadsetEvent headsetPlugin = new HeadsetEvent();
+    HeadsetState headsetEvent;
 
-// Get the value
-// if headset is plugged at the moment
-he.isPlugged.then((_val){
-  setState(() {
-    isConnected = _val;
-  });
-});
+    /// if headset is plugged
+    headsetPlugin.getCurrentState.then((_val){
+      setState(() {
+        headsetEvent = _val;
+      });
+    });
 
-// detect if headset plugged or unplugged
-he.setOnPlugged((_val) {
-  setState(() {
-    isConnected = _val;
-  });
-});
+    /// Detect the moment headset is plugged or unplugged
+    headsetPlugin.setListener((_val) {
+      setState(() {
+        headsetEvent = _val;
+      });
+    });
 ```
