@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart' show visibleForTesting;
+
 
 typedef DetectPluggedCallback = Function(HeadsetState payload);
 
@@ -12,13 +13,24 @@ enum HeadsetState {
 }
 
 class HeadsetEvent {
-
+  
+  static HeadsetEvent _instance;
+  final MethodChannel _channel;
   DetectPluggedCallback detectPluggedCallback;
 
-  static const MethodChannel _channel =
-      const MethodChannel('flutter.moum/headset_event');
+  factory HeadsetEvent() {    
+    if (_instance == null) {
+      final MethodChannel methodChannel =
+          const MethodChannel('flutter.moum/headset_event');
+      _instance = HeadsetEvent.private(methodChannel);
+    }
+    return _instance;
+  }
+  
+  @visibleForTesting
+  HeadsetEvent.private(this._channel);
 
-  static Future<String> get platformVersion async {
+  Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
