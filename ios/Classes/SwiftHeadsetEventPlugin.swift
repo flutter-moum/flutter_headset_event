@@ -49,6 +49,8 @@ public class SwiftHeadsetEventPlugin: NSObject, FlutterPlugin {
                 self.channel!.invokeMethod("connect",arguments: "true")
             case .oldDeviceUnavailable:
                 self.channel!.invokeMethod("disconnect",arguments: "true")
+             case .override:
+                 self.channel!.invokeMethod("disconnect",arguments: "true")
             default: ()
             }
         }
