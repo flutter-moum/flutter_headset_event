@@ -57,7 +57,7 @@ public class SwiftHeadsetEventPlugin: NSObject, FlutterPlugin {
     func HeadsetIsConnect() -> Int  {
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         for output in currentRoute.outputs {
-            if output.portType == AVAudioSession.Port.headphones {
+            if output.portType == AVAudioSession.Port.headphones || output.portType == AVAudioSession.Port.bluetoothA2DP{
                 return 1
             } else {
                 return 0
