@@ -38,7 +38,7 @@ public class SwiftHeadsetEventPlugin: NSObject, FlutterPlugin {
     /////////////////////////////////////////////////////////////
     func registerAudioRouteChangeBlock(){
         
-        NotificationCenter.default.addObserver( forName:NSNotification.Name.AVAudioSessionRouteChange, object: AVAudioSession.sharedInstance(), queue: nil) { notification in
+        NotificationCenter.default.addObserver( forName:AVAudioSession.routeChangeNotification, object: AVAudioSession.sharedInstance(), queue: nil) { notification in
             guard let userInfo = notification.userInfo,
                 let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
                 let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
@@ -57,7 +57,7 @@ public class SwiftHeadsetEventPlugin: NSObject, FlutterPlugin {
     func HeadsetIsConnect() -> Int  {
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         for output in currentRoute.outputs {
-            if output.portType == AVAudioSessionPortHeadphones {
+            if output.portType == AVAudioSession.Port.headphones {
                 return 1
             }else {
                 return 0
