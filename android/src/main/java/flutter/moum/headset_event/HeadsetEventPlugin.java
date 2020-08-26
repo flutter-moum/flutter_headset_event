@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -11,7 +14,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** HeadsetEventPlugin */
-public class HeadsetEventPlugin implements MethodCallHandler{
+public class HeadsetEventPlugin implements FlutterPlugin, MethodCallHandler {
 
   public static MethodChannel headsetEventChannel;
   public static int currentState = -1;
@@ -27,6 +30,8 @@ public class HeadsetEventPlugin implements MethodCallHandler{
     registrar.activeContext().registerReceiver(hReceiver, filter);
 
   }
+
+
 
   @Override
   public void onMethodCall(MethodCall call, Result result) {
@@ -62,4 +67,14 @@ public class HeadsetEventPlugin implements MethodCallHandler{
           headsetEventChannel.invokeMethod("prevButton", "true");
       }
   };
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        binding.getApplicationContext().unregisterReceiver(hReceiver);
+    }
 }
