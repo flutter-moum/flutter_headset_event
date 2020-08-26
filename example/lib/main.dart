@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:headset_event/headset_event.dart';
 
 void main() => runApp(MyApp());
@@ -12,22 +9,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  HeadsetEvent he = new HeadsetEvent();
-  var headsetEvent;
+  HeadsetEvent headsetPlugin = new HeadsetEvent();
+  HeadsetState headsetEvent;
 
   @override
   void initState() {
     super.initState();
 
-    // if headset is plugged
-    he.isConnected.then((_val){
+    /// if headset is plugged
+    headsetPlugin.getCurrentState.then((_val){
       setState(() {
         headsetEvent = _val;
       });
     });
 
-    // detect headset plugged
-    he.setHeadsetEvent((_val) {
+    /// Detect the moment headset is plugged or unplugged
+    headsetPlugin.setListener((_val) {
       setState(() {
         headsetEvent = _val;
       });
@@ -39,11 +36,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Headset Event Plugin'),
         ),
         body: Center(
-          child: Text('Headset is connected? : $headsetEvent\n'),
-        ),
+          child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.headset, color: this.headsetEvent == HeadsetState.CONNECT ? Colors.green : Colors.red,),
+            Text('State : $headsetEvent\n'),
+          ],
+        )),
       ),
     );
   }
