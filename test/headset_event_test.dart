@@ -6,12 +6,12 @@ import 'package:mockito/mockito.dart';
 typedef DetectPluggedCallback = Function(HeadsetState payload);
 
 void main() {
-  MockMethodChannel methodChannel;
-  HeadsetEvent he;
+  late MockMethodChannel methodChannel;
+  late HeadsetEvent he;
 
   setUp(() {
     methodChannel = MockMethodChannel();
-    he = HeadsetEvent.private(methodChannel);    
+    he = HeadsetEvent.private(methodChannel);
   });
 
   test('getCurrentState', () async {
@@ -26,7 +26,6 @@ void main() {
     when(methodChannel.invokeMethod<int>('getCurrentState'))
         .thenAnswer((Invocation invoke) => Future<int>.value(-1));
     expect(await he.getCurrentState, HeadsetState.DISCONNECT);
-
   });
 }
 
