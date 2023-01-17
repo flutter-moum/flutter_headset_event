@@ -7,14 +7,14 @@ import android.content.IntentFilter;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * HeadsetEventPlugin
  */
-public class HeadsetEventPlugin implements MethodCallHandler {
+public class HeadsetEventPlugin implements FlutterPlugin {
 
     public static MethodChannel headsetEventChannel;
     public static int currentState = -1;
